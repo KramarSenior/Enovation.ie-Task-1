@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         insertResults(results);
-    } );
+    });
 
 });
 
@@ -39,21 +39,21 @@ function getCorrectKeywords(keywordsValue) {
     const keywordsArray = keywordsValue.split(/[, ]+/);
 
     return keywordsArray.filter(function (keyword) {
-        return keyword.trim() !== '' && keyword.trim().startsWith('mod_');
-    } );
+        return keyword.trim().startsWith('mod_');
+    });
 
 }
+
 function checkSearchValue(searchText, keywords) {
     const searchArray = searchText.split(' ');
-    const resultsObject = { };
+    const resultsObject = {};
 
     keywords.filter(function (keyword) {
         if (searchArray.includes(keyword)) {
             return resultsObject[keyword] = 'Found';
-        } else {
-            return resultsObject[keyword] = 'Not Found';
         }
-    } );
+        return resultsObject[keyword] = 'Not Found';
+    });
 
     return resultsObject;
 }
@@ -66,10 +66,10 @@ function insertResults(results) {
 
     Object.keys(results).forEach(function (keyword) {
         const resultItem = document.createElement('li');
-        resultItem.textContent = `${keyword}: ${results[keyword]}`;
+        resultItem.textContent = `${keyword}, ${results[keyword]}`;
 
         resultsList.appendChild(resultItem);
-    } );
+    });
 
     resultsContainer.classList.remove('search-box__results--hidden');
     showAlert('Results are ready', true);
@@ -85,7 +85,8 @@ function showAlert(message, success = false) {
 
     if (success) {
         alertText.classList.add('--success');
-    } else {
-        alertText.classList.remove('--success');
+        return;
     }
+
+    alertText.classList.remove('--success');
 }
